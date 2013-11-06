@@ -3,5 +3,28 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript', src='/js/jquery.js')
+    script(type='text/javascript', src='/js/mousetrap.js')
+    script
+        $(function(){
+
+            Mousetrap.bind('up+right', function() { move(5); });
+            Mousetrap.bind('up+left', function() { move(9); });
+
+            Mousetrap.bind('space', function() { stop(); });
+
+            function move(direction) {
+                 console.log(direction)
+                $.ajax({
+                  url: "/move/" + direction,
+                });
+            }
+
+            function stop() {
+                $.ajax({
+                  url: "/stop",
+                });
+            }
+        });
   body
     block content

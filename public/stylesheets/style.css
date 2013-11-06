@@ -1,8 +1,12 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: gray;
 }
 
 a {
   color: #00B7FF;
 }
+
+.buttons div { height: 20px; width: 20px; background: red; 
+	color: white; margin: 10px; cursor: pointer;}
