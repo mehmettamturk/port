@@ -7,14 +7,16 @@ html
     script(type='text/javascript', src='/js/mousetrap.js')
     script
         $(function(){
-
+            /*
             Mousetrap.bind('up+right', function() { move(5); });
             Mousetrap.bind('up+left', function() { move(9); });
 
             Mousetrap.bind('space', function() { stop(); });
+            */
 
+            var latestMove = 0;
             function move(direction) {
-                 console.log(direction)
+                console.log(direction)
                 $.ajax({
                   url: "/move/" + direction,
                 });
@@ -24,6 +26,40 @@ html
                 $.ajax({
                   url: "/stop",
                 });
+            }
+
+
+            var keys = [0,0,0,0];
+
+            $(document).keydown(function (e) {
+                switch(e.which) {
+                    case 38: if(!keys[1]) keys[0] = 1; break; // up
+                    case 40: if(!keys[0]) keys[1] = 2; break; //down
+                    case 37: keys[2] = 8; break; //left
+                    case 39: keys[3] = 4; break; //right
+                }
+                checkWay();
+            });
+
+            $(document).keyup(function (e) {
+                switch(e.which) {
+                    case 38: keys[0] = 0; break; // up
+                    case 40: keys[1] = 0; break; //down
+                    case 37: keys[2] = 0; break; //left
+                    case 39: keys[3] = 0; break; //right
+                }
+                checkWay();
+            });
+
+            function checkWay() {
+                var c = 0;
+                for (var i = 0; i < 4; i++) {
+                    c = c + keys[i];
+                }
+                if (latestMove != c) {
+                    move(c);
+                    latestMove = c;
+                }
             }
         });
   body
