@@ -1,18 +1,11 @@
 doctype 5
 html
   head
-    title= title
+    title RC Car Control By NodeJS over Parallel Port
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(type='text/javascript', src='/js/jquery.js')
-    script(type='text/javascript', src='/js/mousetrap.js')
     script
         $(function(){
-            /*
-            Mousetrap.bind('up+right', function() { move(5); });
-            Mousetrap.bind('up+left', function() { move(9); });
-
-            Mousetrap.bind('space', function() { stop(); });
-            */
 
             var latestMove = 0;
             function move(direction) {
@@ -28,9 +21,7 @@ html
                 });
             }
 
-
             var keys = [0,0,0,0];
-
             $(document).keydown(function (e) {
                 switch(e.which) {
                     case 38: if(!keys[1]) keys[0] = 1; break; // up
@@ -52,13 +43,13 @@ html
             });
 
             function checkWay() {
-                var c = 0;
+                var way = 0;
                 for (var i = 0; i < 4; i++) {
-                    c = c + keys[i];
+                    way = way + keys[i];
                 }
-                if (latestMove != c) {
-                    move(c);
-                    latestMove = c;
+                if (latestMove != way) {
+                    move(way);
+                    latestMove = way;
                 }
             }
         });
